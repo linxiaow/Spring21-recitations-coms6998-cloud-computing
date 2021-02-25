@@ -1,0 +1,2 @@
+- CF_template_sample.json is for part 8 only, which asks you to recreate your stack using CloudFormation.
+- buildspec.yml and samTemplate.yaml are for 7a, which asks you to implement CI/CD for your lambda function code.

@@ -1,0 +1,33 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "CD Demo Lambda",
+  "Resources": {
+    "cfdemofunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "codebucket-jc4883",
+          "S3Key": "CF_demo.zip"
+        },
+        "Description": "lambda fn created by cloudformation",
+        "Tags": [
+          {
+            "Value": "SAM",
+            "Key": "lambda:createdBy"
+          }
+        ],
+        "MemorySize": 128,
+        "Environment": {
+          "Variables": {
+            "REGION": "us-east-1"
+          }
+        },
+        "Handler": "lambda_function.lambda_handler",
+        "Role": "arn:aws:iam::625543281468:role/service-role/CF_demo-role-4q0htx0g",
+        "Timeout": 30,
+        "Runtime": "python3.6",
+        "FunctionName": "cfdemofunction"
+      }
+    }
+  }
+}
