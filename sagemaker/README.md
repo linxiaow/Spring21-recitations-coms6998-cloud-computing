@@ -29,11 +29,11 @@ A ML application backed by AWS SageMaker may contain the following components:
 
 The architecture will be like the figure below:
 
-<img src="https://docs.aws.amazon.com/sagemaker/latest/dg/images/sagemaker-architecture.png">
+<img src="https://docs.aws.amazon.com/sagemaker/latest/dg/images/sagemaker-architecture.png" width="800">
 
 After deploying the model, you will get a reachable endpoint. You will need to integrate the application with the ML model through the endpoint.
 
-<img src="https://i.imgur.com/jA2DgKZ.png">
+<img src="https://i.imgur.com/jA2DgKZ.png" width="600">
 
 
 First, let's use the Jupyter Notebook instance to build and deploy a model. You will perform the following steps:
