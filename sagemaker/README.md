@@ -31,11 +31,6 @@ The architecture will be like the figure below:
 
 <img src="https://docs.aws.amazon.com/sagemaker/latest/dg/images/sagemaker-architecture.png" width="800">
 
-After deploying the model, you will get a reachable endpoint. You will need to integrate the application with the ML model through the endpoint.
-
-<img src="https://i.imgur.com/jA2DgKZ.png" width="600">
-
-
 First, let's use the Jupyter Notebook instance to build and deploy a model. You will perform the following steps:
 
 1. Create a notebook instance
@@ -45,3 +40,48 @@ First, let's use the Jupyter Notebook instance to build and deploy a model. You 
 5. Evaluate your ML model
 
 https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/
+
+
+## Build an online ML service 
+
+After deploying the model, we will get a reachable endpoint. 
+In the next step, We will integrate the application with the ML model through the endpoint. As the figure shows below, we will create a Lambda Function and an api endpoint using API Gateway. 
+
+<img src="https://i.imgur.com/jA2DgKZ.png" width="600">
+
+### Create a Lambda function.
+
+The sample code follows:
+
+```Python
+import boto3
+import json
+
+ENDPOINT_NAME = "xgboost-2021-03-15-05-32-10-051" //replace with your endpoint name.
+runtime= boto3.client('runtime.sagemaker')
+
+def lambda_handler(event, context):
+
+    data = json.loads(json.dumps(event))
+    payload = data["data"]
+    
+    response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
+                                       ContentType='text/csv',
+                                       Body=payload)
+    
+    result = json.loads(response['Body'].read().decode())
+    print("result: ", result)
+
+    return result
+```
+
+The sample of the testing data in this example follows:
+
+```
+{"data": "56,1,999,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0"}
+```
+
+We also need to give our Lambda "sagemaker:InvokeEndpoint" permission to invoke a SageMaker model endpoint. 
+
+### Set up API Gateway
+We need to build a resource with a POST method. After deploying your api, we can use the api endpoint to test our data.
