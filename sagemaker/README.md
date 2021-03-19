@@ -45,11 +45,14 @@ https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learn
 ## Build an online ML service 
 
 After deploying the model, we will get a reachable endpoint. 
-In the next step, We will integrate the application with the ML model through the endpoint. As the figure shows below, we will create a Lambda Function and an api endpoint using API Gateway. 
+
+In the next step, you are expected to integrate your application with the ML model through the endpoint. 
+
+As shown in the figure below, we are going to build a Lambda Function and an api endpoint using API Gateway, again. 
 
 <img src="https://i.imgur.com/jA2DgKZ.png" width="600">
 
-### Create a Lambda function.
+### Create a Lambda function
 
 The sample code follows:
 
@@ -81,7 +84,16 @@ The sample of the testing data in this example follows:
 {"data": "56,1,999,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0"}
 ```
 
-We also need to give our Lambda "sagemaker:InvokeEndpoint" permission to invoke a SageMaker model endpoint. 
+We also need to give our Lambda `sagemaker:InvokeEndpoint` permission to invoke a SageMaker model endpoint. 
 
 ### Set up API Gateway
 We need to build a resource with a POST method. After deploying your api, we can use the api endpoint to test our data.
+
+https://aws.amazon.com/blogs/machine-learning/call-an-amazon-sagemaker-model-endpoint-using-amazon-api-gateway-and-aws-lambda/
+
+## Another option - Build a Resful API
+<img src="https://i.imgur.com/wkTf6TD.png" width="600">
+
+Someone might prefer to build a Restful API reaching the SageMaker endpoint directly, then API Gateway mapping templates is exactly what you need. 
+
+https://aws.amazon.com/blogs/machine-learning/creating-a-machine-learning-powered-rest-api-with-amazon-api-gateway-mapping-templates-and-amazon-sagemaker/
